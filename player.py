@@ -24,10 +24,9 @@ stream = p.open(format=p.get_format_from_width(frame_width),
 plt.ion()
 fig, ax = plt.subplots()
 
-chunk_size = 2048 
+chunk_size = sample_rate//10 
 num_chunks = len(samples) // chunk_size
-print(num_chunks)
-
+print(chunk_size)
 # 创建队列用于音频块传递
 audio_queue = queue.Queue()
 
