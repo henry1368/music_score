@@ -8,7 +8,7 @@ import queue
 from scipy.signal import find_peaks
 
 # 加载音频文件
-audio = AudioSegment.from_file("skycity.mp4")
+audio = AudioSegment.from_file("flower_dance.mp4")
 samples = np.array(audio.get_array_of_samples())
 sample_rate = audio.frame_rate
 frame_width = audio.sample_width
@@ -80,6 +80,9 @@ def plot_spectrum():
         
         # 绘制频谱，指定颜色为蓝色
         ax.plot(freq[:len(freq)//2], np.abs(spectrum[:len(spectrum)//2]), color='b')
+        plt.xlim((0,5000))
+        plt.xlabel('freq(Hz)')
+        plt.ylabel('amplitude')
 
         # 找到多个波峰
         peaks, _ = find_peaks(np.abs(spectrum[:len(spectrum)//2]), height=0.5*np.max(np.abs(spectrum)))
