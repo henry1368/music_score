@@ -23,10 +23,10 @@ stream = p.open(format=p.get_format_from_width(frame_width),
 # 实时显示频谱
 plt.ion()
 fig, ax = plt.subplots()
+plt.xlim((0,8000))
 
 chunk_size = sample_rate//10 
 num_chunks = len(samples) // chunk_size
-print(chunk_size)
 # 创建队列用于音频块传递
 audio_queue = queue.Queue()
 
@@ -66,7 +66,7 @@ def plot_spectrum():
         if chunk is None:
             break
 
-        spectrum = np.fft.fft(chunk)
+        spectrum = np.fft.fft(chunk,sample_rate*2)
         freq = np.fft.fftfreq(len(spectrum), d=1/sample_rate)
         
         # 清除现有的曲线
@@ -80,7 +80,6 @@ def plot_spectrum():
         
         # 绘制频谱，指定颜色为蓝色
         ax.plot(freq[:len(freq)//2], np.abs(spectrum[:len(spectrum)//2]), color='b')
-        plt.xlim((0,5000))
         plt.xlabel('freq(Hz)')
         plt.ylabel('amplitude')
 
